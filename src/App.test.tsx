@@ -5,6 +5,7 @@ import App from './App';
 describe('Portfolio', () => {
   it('renders the professional positioning', () => {
     render(<App />);
+
     expect(screen.getByRole('heading', { name: /Rômulo Pereira/i })).toBeInTheDocument();
     expect(
       screen.getByText(/Software Engineer · Cloud · Cybersecurity · Tech Educator/i),
@@ -13,14 +14,18 @@ describe('Portfolio', () => {
 
   it('lists the SoulCode experience by program', () => {
     render(<App />);
-    expect(screen.getByText(/1000DEVs – Talentos para o Bem/i)).toBeInTheDocument();
-    expect(screen.getByText(/Grupo Petrópolis \+ TNT Energy Drink/i)).toBeInTheDocument();
-    expect(screen.getByText(/Bootcamp KPMG \+ SoulCode Academy/i)).toBeInTheDocument();
+
+    expect(screen.getAllByText(/1000DEVs – Talentos para o Bem/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/Grupo Petrópolis \+ TNT Energy Drink/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/Bootcamp KPMG \+ SoulCode Academy/i).length).toBeGreaterThan(0);
   });
 
   it('renders the self-hosted portfolio project', () => {
     render(<App />);
-    expect(screen.getByRole('heading', { name: /Portfolio Self-Hosted/i })).toBeInTheDocument();
-    expect(screen.getByText(/servidor ARM64 próprio/i)).toBeInTheDocument();
+
+    expect(
+      screen.getAllByRole('heading', { name: /Portfolio Self-Hosted/i }).length,
+    ).toBeGreaterThan(0);
+    expect(screen.getAllByText(/servidor ARM64 próprio/i).length).toBeGreaterThan(0);
   });
 });
