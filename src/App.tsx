@@ -30,6 +30,8 @@ const navItems = [
   ['Contato', 'contato'],
 ];
 
+const projectIcons = [Network, ShieldCheck, Server, Boxes];
+
 const areas = [
   {
     icon: Code2,
@@ -237,21 +239,29 @@ function App() {
           </div>
 
           <div className="cards-grid two">
-            {projects.map((project, index) => (
-              <article className="project-card panel" key={project.title}>
-                <div className="project-top">
-                  <div className="icon-box">
-                    {[Network, ShieldCheck, Server, Boxes][index]({ size: 24 })}
+            {projects.map((project, index) => {
+              const ProjectIcon = projectIcons[index] ?? Code2;
+
+              return (
+                <article className="project-card panel" key={project.title}>
+                  <div className="project-top">
+                    <div className="icon-box">
+                      <ProjectIcon size={24} />
+                    </div>
+                    <ArrowRight size={20} />
                   </div>
-                  <ArrowRight size={20} />
-                </div>
-                <h3>{project.title}</h3>
-                <p>{project.description}</p>
-                <div className="tags">
-                  {project.tags.map((tag) => <span className="tag" key={tag}>{tag}</span>)}
-                </div>
-              </article>
-            ))}
+                  <h3>{project.title}</h3>
+                  <p>{project.description}</p>
+                  <div className="tags">
+                    {project.tags.map((tag) => (
+                      <span className="tag" key={tag}>
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </article>
+              );
+            })}
           </div>
         </section>
 
