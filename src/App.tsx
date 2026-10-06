@@ -159,7 +159,7 @@ function App() {
               src="/profile.jpg"
               alt="Rômulo Pereira"
               onError={(event) => {
-                event.currentTarget.src = 'https://avatars.githubusercontent.com/rmullo';
+                event.currentTarget.src = ../public/profile-hero.png;
               }}
             />
           </div>
@@ -331,13 +331,13 @@ function App() {
             <p>Aberto a projetos, oportunidades, pesquisa, educação e colaboração em tecnologia.</p>
           </div>
           <div className="contact-actions">
-            <a className="button primary" href="https://www.linkedin.com/" target="_blank" rel="noreferrer">
+            <a className="button primary" href="https://www.linkedin.com/in/rmullo" target="_blank" rel="noreferrer">
               <Linkedin size={18} /> LinkedIn
             </a>
             <a className="button ghost" href="https://github.com/rmullo" target="_blank" rel="noreferrer">
               <Github size={18} /> GitHub
             </a>
-            <a className="button ghost" href="mailto:contato@example.com">
+            <a className="button ghost" href="mailto:romimpereira@gmail.com">
               <Mail size={18} /> Email
             </a>
           </div>
