@@ -100,6 +100,11 @@ function App() {
             </p>
             <p className="hero-highlight">Tecnologia que sai do código e resolve problemas reais.</p>
 
+            <div className="availability-status">
+              <span className="status-dot" aria-hidden="true" />
+              <span>Disponível para projetos, oportunidades e colaboração</span>
+            </div>
+
             <div className="hero-actions">
               <a className="button primary" href="#projetos">
                 Ver projetos <ArrowRight size={18} />
@@ -136,6 +141,20 @@ function App() {
               <ShieldCheck size={20} />
               <span>Security</span>
             </div>
+
+            <div className="hero-terminal" aria-hidden="true">
+              <div className="terminal-bar">
+                <span />
+                <span />
+                <span />
+              </div>
+              <code>
+                <span className="terminal-prompt">$</span> deploy portfolio
+                <br />
+                <span className="terminal-ok">✓ build</span> · <span className="terminal-ok">✓ test</span> · <span className="terminal-ok">✓ ship</span>
+              </code>
+            </div>
+
             <img
               src="/profile.jpg"
               alt="Rômulo Pereira"
