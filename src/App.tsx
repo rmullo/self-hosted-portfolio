@@ -127,7 +127,7 @@ function App() {
           <figure className="hero-visual">
             <div className="portrait-frame">
               <img
-                src="/profile-hero.webp"
+                src="/profile-hero.png"
                 alt="Retrato digital de Rômulo Pereira em composição visual de tecnologia"
                 width="900"
                 height="1125"
