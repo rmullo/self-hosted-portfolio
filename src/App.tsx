@@ -109,7 +109,7 @@ function App() {
               </a>
               <a
                 className="button ghost"
-                href="https://github.com/rmullo"
+                href="https://github.com/rmullo/"
                 target="_blank"
                 rel="noreferrer"
               >
@@ -231,7 +231,7 @@ function App() {
               <span className="section-kicker">03 / Projetos</span>
               <h2>Projetos que demonstram a tecnologia em funcionamento.</h2>
             </div>
-            <a href="https://github.com/rmullo" target="_blank" rel="noreferrer">
+            <a href="https://github.com/rmullo/" target="_blank" rel="noreferrer">
               GitHub <ArrowRight size={16} aria-hidden="true" />
             </a>
           </div>
@@ -310,10 +310,10 @@ function App() {
             <p>Aberto a projetos, oportunidades, pesquisa, educação e colaboração em tecnologia.</p>
           </div>
           <div className="contact-actions">
-            <a className="button primary" href="https://www.linkedin.com/in/rmullo" target="_blank" rel="noreferrer">
+            <a className="button primary" href="https://www.linkedin.com/in/rmullo/" target="_blank" rel="noreferrer">
               <Linkedin size={18} aria-hidden="true" /> LinkedIn
             </a>
-            <a className="button ghost" href="https://github.com/rmullo" target="_blank" rel="noreferrer">
+            <a className="button ghost" href="https://github.com/rmullo/" target="_blank" rel="noreferrer">
               <Github size={18} aria-hidden="true" /> GitHub
             </a>
             <a className="button ghost" href="mailto:romimpereira@gmail.com">
