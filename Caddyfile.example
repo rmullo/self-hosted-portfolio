@@ -1,0 +1,25 @@
+portfolio.example.com {
+    root * /var/www/portfolio
+    encode zstd gzip
+
+    @static {
+        file
+    }
+
+    handle @static {
+        file_server
+    }
+
+    # React SPA fallback. Mantém rotas futuras funcionando após refresh.
+    handle {
+        try_files {path} /index.html
+        file_server
+    }
+
+    header {
+        X-Content-Type-Options nosniff
+        X-Frame-Options DENY
+        Referrer-Policy strict-origin-when-cross-origin
+        Permissions-Policy "camera=(), microphone=(), geolocation=()"
+    }
+}
