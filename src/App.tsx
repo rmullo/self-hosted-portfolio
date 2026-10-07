@@ -1,331 +1,419 @@
-import {
-  ArrowRight,
-  BookOpen,
-  Boxes,
-  BriefcaseBusiness,
-  Cloud,
-  Code2,
-  Database,
-  Download,
-  Github,
-  GraduationCap,
-  Linkedin,
-  Mail,
-  Menu,
-  Network,
-  Server,
-  ShieldCheck,
-  X,
-} from 'lucide-react';
-import { useState } from 'react';
+import { ArrowDown, ArrowRight, ArrowUpRight, Github, Linkedin, Mail, Menu, X } from 'lucide-react';
+import { useRef, useState } from 'react';
 import { education, experiences, projects, soulCodePrograms, stack } from './data/portfolio';
 
 const navItems = [
   ['Sobre', 'sobre'],
-  ['Experiência', 'experiencia'],
   ['Projetos', 'projetos'],
+  ['Experiência', 'experiencia'],
   ['Stack', 'stack'],
   ['Formação', 'formacao'],
-  ['Contato', 'contato'],
 ];
-
-const projectIcons = [Network, ShieldCheck, Server, Boxes];
 
 const areas = [
-  {
-    icon: Code2,
-    title: 'Software Engineering',
-    text: 'Aplicações backend robustas, APIs e arquitetura orientada a soluções reais.',
-  },
-  {
-    icon: Cloud,
-    title: 'Cloud & DevOps',
-    text: 'Linux, containers, cloud e automação para ambientes simples, reproduzíveis e escaláveis.',
-  },
-  {
-    icon: ShieldCheck,
-    title: 'Cybersecurity',
-    text: 'Redes, gestão de riscos, fundamentos de defesa e segurança aplicada a ambientes corporativos.',
-  },
-  {
-    icon: BookOpen,
-    title: 'Education & AI',
-    text: 'Formação de profissionais em tecnologia, IA generativa, Low Code e aplicações práticas.',
-  },
+  ['Software', 'Backend, APIs e arquitetura de aplicações.'],
+  ['Infraestrutura', 'Linux, cloud e serviços que eu mesmo hospedo.'],
+  ['Segurança', 'Redes, defesa e segurança aplicada.'],
+  ['Educação', 'Formação em tecnologia, do Java à IA aplicada.'],
 ];
+
+function ContactLinks({ className = '' }: { className?: string }) {
+  return (
+    <div className={`social-links ${className}`} role="group" aria-label="Redes e contato">
+      <a
+        className="social-link linkedin"
+        href="https://www.linkedin.com/in/rmullo/"
+        target="_blank"
+        rel="noreferrer"
+      >
+        <Linkedin size={28} aria-hidden="true" />
+        <span>LinkedIn</span>
+      </a>
+      <a
+        className="social-link github"
+        href="https://github.com/rmullo/"
+        target="_blank"
+        rel="noreferrer"
+      >
+        <Github size={28} aria-hidden="true" />
+        <span>GitHub</span>
+      </a>
+      <a className="social-link email" href="mailto:romimpereira@gmail.com">
+        <Mail size={28} aria-hidden="true" />
+        <span>E-mail</span>
+      </a>
+    </div>
+  );
+}
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const menuButton = useRef<HTMLButtonElement>(null);
+  const [portraitFailed, setPortraitFailed] = useState(false);
+  const featuredProject = projects[3];
 
   return (
     <div className="app-shell">
-      <a className="skip-link" href="#conteudo">Pular para o conteúdo</a>
+      <a className="skip-link" href="#conteudo">
+        Pular para o conteúdo
+      </a>
       <header className="site-header">
-        <a className="brand" href="#inicio" aria-label="Ir para o início">
-          <span className="brand-mark">{'{ }'}</span>
-          <span>Rômulo Pereira</span>
+        <a className="brand" href="#inicio" aria-label="Rômulo Pereira — início">
+          <span className="brand-mark" aria-hidden="true">
+            rp<span>.</span>
+          </span>
+          <span className="brand-description">Engenheiro & educador</span>
         </a>
-
         <button
+          ref={menuButton}
           className="menu-toggle"
           aria-label={menuOpen ? 'Fechar menu' : 'Abrir menu'}
           aria-expanded={menuOpen}
+          aria-controls="navigation"
           onClick={() => setMenuOpen((value) => !value)}
         >
-          {menuOpen ? <X size={22} /> : <Menu size={22} />}
+          {menuOpen ? <X size={22} aria-hidden="true" /> : <Menu size={22} aria-hidden="true" />}
         </button>
-
-        <nav className={menuOpen ? 'nav open' : 'nav'} aria-label="Navegação principal">
+        <nav
+          id="navigation"
+          className={menuOpen ? 'nav open' : 'nav'}
+          aria-label="Navegação principal"
+          onKeyDown={(event) => {
+            if (event.key === 'Escape') {
+              setMenuOpen(false);
+              menuButton.current?.focus();
+            }
+          }}
+        >
           {navItems.map(([label, id]) => (
             <a key={id} href={'#' + id} onClick={() => setMenuOpen(false)}>
               {label}
             </a>
           ))}
+          <a className="nav-contact" href="#contato" onClick={() => setMenuOpen(false)}>
+            Vamos conversar <ArrowUpRight size={16} aria-hidden="true" />
+          </a>
         </nav>
       </header>
 
-      <main id="conteudo">
-        <section className="hero section" id="inicio">
+      <main id="conteudo" tabIndex={-1}>
+        <section className="hero section" id="inicio" aria-labelledby="hero-title">
           <div className="hero-copy">
-            <span className="eyebrow">Tecnologia, pessoas e impacto real</span>
-            <h1>
-              Rômulo <span>Pereira</span>
+            <span className="eyebrow">
+              <span className="status-dot" />
+              Disponível para novos projetos
+            </span>
+            <h1 id="hero-title">
+              Rômulo <span>Pereira.</span>
             </h1>
-            <p className="hero-role">Software Engineer · Cloud · Cybersecurity · Tech Educator</p>
-            <p className="hero-description">
-              Engenheiro de Computação com experiência em desenvolvimento backend, cloud,
-              cybersecurity e formação de profissionais em tecnologia.
+            <p className="hero-intro">
+              Escrevo código.
+              <br />
+              Compartilho o que aprendo.
             </p>
-            <p className="hero-highlight">Tecnologia que sai do código e resolve problemas reais.</p>
-
-            <div className="availability-status">
-              <span className="status-dot" aria-hidden="true" />
-              <span>Disponível para projetos, oportunidades e colaboração</span>
-            </div>
-
+            <p className="hero-description">
+              Sou engenheiro de computação e educador. Trabalho com backend, infraestrutura e
+              segurança — e levo essa prática para a sala de aula.
+            </p>
             <div className="hero-actions">
               <a className="button primary" href="#projetos">
-                Ver projetos <ArrowRight size={18} aria-hidden="true" />
+                Conheça meu trabalho <ArrowDown size={17} aria-hidden="true" />
               </a>
+            </div>
+            <ContactLinks className="hero-socials" />
+          </div>
+          <figure className="hero-visual">
+            <div className="portrait-label">
+              <span>Entre o código e a sala de aula</span>
+              <span aria-hidden="true">↘</span>
+            </div>
+            <div className="portrait-frame">
+              {portraitFailed ? (
+                <span className="portrait-fallback" aria-label="Rômulo Pereira">
+                  rp.
+                </span>
+              ) : (
+                <img
+                  src="/profile-hero.png"
+                  alt="Retrato de Rômulo Pereira"
+                  width="1122"
+                  height="1402"
+                  fetchPriority="high"
+                  onError={() => setPortraitFailed(true)}
+                />
+              )}
+            </div>
+            <figcaption className="portrait-caption">
+              <span>Engenharia de Computação</span>
+              <span>Mestre pela UFCA</span>
+            </figcaption>
+          </figure>
+          <div className="hero-bottom">
+            <p>Software Engineer · Cloud · Cybersecurity · Tech Educator</p>
+            <a href="#sobre">
+              Um pouco sobre mim <ArrowDown size={15} aria-hidden="true" />
+            </a>
+          </div>
+        </section>
+
+        <section className="section about-section" id="sobre" aria-labelledby="about-title">
+          <div className="section-heading">
+            <span className="section-kicker">01 / Sobre</span>
+            <h2 id="about-title">
+              A prática alimenta
+              <br />
+              <em>o que eu ensino.</em>
+            </h2>
+          </div>
+          <div className="about-content">
+            <p className="lead">
+              Há mais de dez anos, meu trabalho acontece em dois lugares: nos sistemas que
+              desenvolvo e nas pessoas que ajudo a formar.
+            </p>
+            <p>
+              Sou Engenheiro de Computação pela UNIVASF e Mestre em Desenvolvimento Regional
+              Sustentável pela UFCA. Minha trajetória passa por desenvolvimento backend,
+              infraestrutura Linux e formação profissional em tecnologia.
+            </p>
+            <p>
+              Hoje, conecto essa experiência ao ensino de Cybersecurity, Microsoft Copilot Studio,
+              Power Platform e inteligência artificial aplicada. Também mantenho meu próprio
+              laboratório de serviços — este site faz parte dele.
+            </p>
+            <div className="areas-list">
+              {areas.map(([title, description], index) => (
+                <div className="area" key={title}>
+                  <span className="mono">0{index + 1}</span>
+                  <div>
+                    <h3>{title}</h3>
+                    <p>{description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="section" id="projetos" aria-labelledby="projects-title">
+          <div className="section-heading split">
+            <div>
+              <span className="section-kicker">02 / Projetos selecionados</span>
+              <h2 id="projects-title">
+                Feito para <em>funcionar.</em>
+              </h2>
+            </div>
+            <a
+              className="text-link"
+              href="https://github.com/rmullo/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Explorar o GitHub <ArrowUpRight size={18} aria-hidden="true" />
+            </a>
+          </div>
+          <article className="featured-project">
+            <div className="featured-copy">
+              <span className="section-kicker">Em destaque / Você está aqui</span>
+              <h3>{featuredProject.title}</h3>
+              <p>{featuredProject.description}</p>
+              <div className="tags">
+                {featuredProject.tags.map((tag) => (
+                  <span key={tag}>{tag}</span>
+                ))}
+              </div>
               <a
-                className="button ghost"
-                href="https://github.com/rmullo/"
+                className="text-link"
+                href="https://github.com/rmullo/self-hosted-portfolio"
                 target="_blank"
                 rel="noreferrer"
               >
-                <Github size={18} aria-hidden="true" /> GitHub
-              </a>
-              <a className="button ghost" href="#contato">
-                <Mail size={18} aria-hidden="true" /> Contato
-              </a>
-              <a className="button ghost" href="/curriculo.pdf">
-                <Download size={18} aria-hidden="true" /> Currículo
+                Ver código do portfólio <ArrowUpRight size={18} aria-hidden="true" />
               </a>
             </div>
-          </div>
-
-          <figure className="hero-visual">
-            <div className="portrait-frame">
-              <img
-                src="/profile-hero.png"
-                alt="Retrato digital de Rômulo Pereira em composição visual de tecnologia"
-                width="900"
-                height="1125"
-                fetchPriority="high"
-                onError={(event) => {
-                  event.currentTarget.src = 'https://avatars.githubusercontent.com/rmullo';
-                }}
-              />
-            </div>
-            <figcaption className="portrait-caption">
-              <span>Rômulo Pereira</span>
-              <span>Software Engineer · Cloud · Security</span>
-            </figcaption>
-          </figure>
-        </section>
-
-        <section className="section" id="sobre">
-          <div className="section-heading">
-            <span className="section-kicker">01 / Sobre</span>
-            <h2>Uma carreira conectando engenharia, infraestrutura, segurança e educação.</h2>
-          </div>
-          <div className="about-grid">
-            <div className="about-copy panel">
-              <p>
-                Sou Engenheiro de Computação e Mestre em Desenvolvimento Regional Sustentável.
-                Minha trajetória combina desenvolvimento de software, infraestrutura, cloud,
-                segurança e educação tecnológica.
-              </p>
-              <p>
-                Atuo com Java, Node.js, TypeScript, bancos de dados, Linux e Docker, além de
-                formação profissional em Cybersecurity, Microsoft Copilot Studio, Power Platform
-                e inteligência artificial aplicada.
+            <div
+              className="architecture"
+              aria-label="Publicação do site: código React e Vite, automação GitHub Actions e servidor próprio ARM64 com Caddy"
+            >
+              <div className="architecture-top">
+                <span>DA MÁQUINA À WEB</span>
+                <span>01—03</span>
+              </div>
+              <div className="architecture-step">
+                <span className="step-index">01</span>
+                <div>
+                  <strong>Código</strong>
+                  <span>React + TypeScript + Vite</span>
+                </div>
+                <span className="step-symbol" aria-hidden="true">
+                  {'{ }'}
+                </span>
+              </div>
+              <div className="architecture-step">
+                <span className="step-index">02</span>
+                <div>
+                  <strong>Automação</strong>
+                  <span>GitHub Actions · CI/CD</span>
+                </div>
+                <span className="step-symbol" aria-hidden="true">
+                  ↳
+                </span>
+              </div>
+              <div className="architecture-step">
+                <span className="step-index">03</span>
+                <div>
+                  <strong>Servidor próprio</strong>
+                  <span>ARM64 · Linux · Caddy</span>
+                </div>
+                <span className="step-symbol" aria-hidden="true">
+                  ↗
+                </span>
+              </div>
+              <p className="architecture-caption">
+                <span className="status-dot" />
+                Do commit à infraestrutura que eu mantenho.
               </p>
             </div>
-            <div className="metrics">
-              <div className="metric panel"><strong>10+</strong><span>anos em tecnologia e educação</span></div>
-              <div className="metric panel"><strong>4</strong><span>frentes de atuação integradas</span></div>
-              <div className="metric panel"><strong>ARM64</strong><span>infraestrutura própria deste site</span></div>
-            </div>
-          </div>
-
-          <div className="cards-grid four">
-            {areas.map(({ icon: Icon, title, text }) => (
-              <article className="area-card panel" key={title}>
-                <div className="icon-box"><Icon size={24} /></div>
-                <h3>{title}</h3>
-                <p>{text}</p>
+          </article>
+          <div className="project-list">
+            {projects.slice(0, 3).map((project, index) => (
+              <article className="project-row" key={project.title}>
+                <span className="project-index mono">0{index + 2}</span>
+                <div className="project-summary">
+                  <h3>{project.title}</h3>
+                  <p>{project.description}</p>
+                </div>
+                <div className="tags">
+                  {project.tags.map((tag) => (
+                    <span key={tag}>{tag}</span>
+                  ))}
+                </div>
               </article>
             ))}
           </div>
         </section>
 
-        <section className="section" id="experiencia">
-          <div className="section-heading">
-            <span className="section-kicker">02 / Experiência</span>
-            <h2>Experiência profissional com código, ensino e transformação digital.</h2>
-          </div>
-
-          <div className="soulcode panel">
-            <div className="soulcode-heading">
-              <div>
-                <span className="company-badge">{'{ }'} SoulCode Academy</span>
-                <h3>Programas e cursos</h3>
-              </div>
-              <p>
-                Experiências organizadas por programa para evidenciar contexto, parceiros e
-                responsabilidade em cada formação.
-              </p>
+        <section className="section" id="experiencia" aria-labelledby="experience-title">
+          <div className="section-heading split">
+            <div>
+              <span className="section-kicker">03 / Experiência</span>
+              <h2 id="experience-title">
+                Uma trajetória de <em>trocas.</em>
+              </h2>
             </div>
-            <div className="cards-grid three">
+            <p>
+              Desenvolvimento, ensino e gestão.
+              <br />
+              Perspectivas que se complementam.
+            </p>
+          </div>
+          <div className="timeline">
+            {experiences.map((experience) => (
+              <article className="timeline-item" key={experience.company + experience.role}>
+                <span className="timeline-period mono">{experience.period}</span>
+                <div className="timeline-company">
+                  <h3>{experience.company}</h3>
+                  <span>{experience.role}</span>
+                </div>
+                <p>{experience.description}</p>
+              </article>
+            ))}
+          </div>
+          <div className="programs">
+            <div className="programs-intro">
+              <span className="section-kicker">Ensino em prática</span>
+              <h3>Na SoulCode Academy</h3>
+              <p>Programas em que atuo como professor e instrutor.</p>
+            </div>
+            <div className="program-list">
               {soulCodePrograms.map((program) => (
-                <article className="program-card" key={program.title + program.subtitle}>
-                  <span className="tag">{program.tag}</span>
+                <article className="program" key={program.title}>
+                  <span className="program-tag">{program.tag}</span>
                   <h4>{program.title}</h4>
-                  <p className="program-subtitle">{program.subtitle}</p>
+                  <p>{program.subtitle}</p>
                   <p className="program-role">{program.role}</p>
-                  <p className="muted">{program.partners}</p>
+                  <span className="program-partners">{program.partners}</span>
                 </article>
               ))}
             </div>
           </div>
-
-          <div className="timeline">
-            {experiences.map((experience) => (
-              <article className="timeline-item panel" key={experience.company + experience.role}>
-                <div className="timeline-icon"><BriefcaseBusiness size={20} /></div>
-                <div>
-                  <span className="muted">{experience.period}</span>
-                  <h3>{experience.company}</h3>
-                  <strong>{experience.role}</strong>
-                  <p>{experience.description}</p>
-                </div>
-              </article>
-            ))}
-          </div>
         </section>
 
-        <section className="section" id="projetos">
-          <div className="section-heading split">
-            <div>
-              <span className="section-kicker">03 / Projetos</span>
-              <h2>Projetos que demonstram a tecnologia em funcionamento.</h2>
-            </div>
-            <a href="https://github.com/rmullo/" target="_blank" rel="noreferrer">
-              GitHub <ArrowRight size={16} aria-hidden="true" />
-            </a>
-          </div>
-
-          <div className="cards-grid two">
-            {projects.map((project, index) => {
-              const ProjectIcon = projectIcons[index] ?? Code2;
-
-              return (
-                <article className="project-card panel" key={project.title}>
-                  <div className="project-top">
-                    <div className="icon-box">
-                      <ProjectIcon size={24} />
-                    </div>
-                    <ArrowRight size={20} aria-hidden="true" />
-                  </div>
-                  <h3>{project.title}</h3>
-                  <p>{project.description}</p>
-                  <div className="tags">
-                    {project.tags.map((tag) => (
-                      <span className="tag" key={tag}>
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </article>
-              );
-            })}
-          </div>
-        </section>
-
-        <section className="section" id="stack">
+        <section className="section stack-section" id="stack" aria-labelledby="stack-title">
           <div className="section-heading">
-            <span className="section-kicker">04 / Stack</span>
-            <h2>Ferramentas escolhidas pelo problema, não pelo hype.</h2>
+            <span className="section-kicker">04 / Ferramentas</span>
+            <h2 id="stack-title">
+              Na minha
+              <br />
+              <em>bancada.</em>
+            </h2>
+            <p>As tecnologias que atravessam meu trabalho e minhas aulas.</p>
           </div>
-          <div className="stack-grid">
+          <div className="stack-list">
             {Object.entries(stack).map(([category, items]) => (
-              <article className="stack-card panel" key={category}>
-                <h3>
-                  {category === 'Database' ? <Database size={19} /> : <Code2 size={19} />}
-                  {category}
-                </h3>
-                <div className="tags">
-                  {items.map((item) => <span className="tag" key={item}>{item}</span>)}
-                </div>
-              </article>
+              <div className="stack-row" key={category}>
+                <h3>{category}</h3>
+                <p>{items.join(' / ')}</p>
+              </div>
             ))}
           </div>
         </section>
 
-        <section className="section" id="formacao">
+        <section
+          className="section education-section"
+          id="formacao"
+          aria-labelledby="education-title"
+        >
           <div className="section-heading">
             <span className="section-kicker">05 / Formação</span>
-            <h2>Base acadêmica conectada à aplicação prática.</h2>
+            <h2 id="education-title">
+              Base para
+              <br />
+              <em>seguir aprendendo.</em>
+            </h2>
           </div>
-          <div className="cards-grid two">
+          <div className="education-list">
             {education.map((item) => (
-              <article className="education-card panel" key={item.course}>
-                <div className="icon-box"><GraduationCap size={24} /></div>
+              <article className="education-item" key={item.course}>
+                <span className="mono">{item.finished}</span>
                 <div>
-                  <span className="tag">Concluído em {item.finished}</span>
                   <h3>{item.course}</h3>
                   <p>{item.institution}</p>
-                  {item.detail && <p className="muted">{item.detail}</p>}
+                  {item.detail && <p className="education-detail">{item.detail}</p>}
                 </div>
               </article>
             ))}
           </div>
         </section>
 
-        <section className="contact section" id="contato">
-          <div>
-            <span className="section-kicker">06 / Contato</span>
-            <h2>Vamos construir alguma coisa juntos?</h2>
-            <p>Aberto a projetos, oportunidades, pesquisa, educação e colaboração em tecnologia.</p>
-          </div>
-          <div className="contact-actions">
-            <a className="button primary" href="https://www.linkedin.com/in/rmullo/" target="_blank" rel="noreferrer">
-              <Linkedin size={18} aria-hidden="true" /> LinkedIn
-            </a>
-            <a className="button ghost" href="https://github.com/rmullo/" target="_blank" rel="noreferrer">
-              <Github size={18} aria-hidden="true" /> GitHub
-            </a>
-            <a className="button ghost" href="mailto:romimpereira@gmail.com">
-              <Mail size={18} aria-hidden="true" /> Email
-            </a>
+        <section className="contact" id="contato" aria-labelledby="contact-title">
+          <div className="contact-inner">
+            <div className="contact-top">
+              <span className="section-kicker">06 / Próxima conversa</span>
+              <span className="contact-availability">
+                <span className="status-dot" />
+                Aberto a projetos e colaborações
+              </span>
+            </div>
+            <h2 id="contact-title">
+              Tem algo em mente?
+              <br />
+              <em>Vamos conversar.</em>
+            </h2>
+            <div className="contact-bottom">
+              <a className="contact-email" href="mailto:romimpereira@gmail.com">
+                romimpereira@gmail.com <ArrowUpRight aria-hidden="true" />
+              </a>
+              <ContactLinks className="contact-socials" />
+            </div>
           </div>
         </section>
       </main>
-
       <footer>
-        <span>© {new Date().getFullYear()} Rômulo Pereira.</span>
-        <span>React · Vite · CI/CD · Self-hosted ARM64</span>
+        <span>© {new Date().getFullYear()} Rômulo Pereira</span>
+        <span>Feito por aqui. Hospedado por aqui.</span>
+        <a href="#inicio">
+          Voltar ao início <ArrowRight size={15} aria-hidden="true" />
+        </a>
       </footer>
     </div>
   );
