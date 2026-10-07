@@ -258,3 +258,26 @@ Recomendações:
 ## Licença
 
 Definir antes da publicação pública do projeto.
+
+
+## Teste local com Docker
+
+Antes do merge para `main`, valide a aplicação localmente:
+
+```bash
+docker compose up --build -d
+```
+
+Abra:
+
+```text
+http://localhost:8080
+```
+
+Para encerrar:
+
+```bash
+docker compose down
+```
+
+Consulte [docs/DOCKER_TEST.md](docs/DOCKER_TEST.md) para o procedimento completo.
