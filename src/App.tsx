@@ -15,7 +15,6 @@ import {
   Network,
   Server,
   ShieldCheck,
-  Sparkles,
   X,
 } from 'lucide-react';
 import { useState } from 'react';
@@ -60,6 +59,7 @@ function App() {
 
   return (
     <div className="app-shell">
+      <a className="skip-link" href="#conteudo">Pular para o conteúdo</a>
       <header className="site-header">
         <a className="brand" href="#inicio" aria-label="Ir para o início">
           <span className="brand-mark">{'{ }'}</span>
@@ -84,12 +84,10 @@ function App() {
         </nav>
       </header>
 
-      <main>
+      <main id="conteudo">
         <section className="hero section" id="inicio">
           <div className="hero-copy">
-            <span className="eyebrow">
-              <Sparkles size={16} /> Tecnologia, pessoas e impacto real
-            </span>
+            <span className="eyebrow">Tecnologia, pessoas e impacto real</span>
             <h1>
               Rômulo <span>Pereira</span>
             </h1>
@@ -107,7 +105,7 @@ function App() {
 
             <div className="hero-actions">
               <a className="button primary" href="#projetos">
-                Ver projetos <ArrowRight size={18} />
+                Ver projetos <ArrowRight size={18} aria-hidden="true" />
               </a>
               <a
                 className="button ghost"
@@ -115,54 +113,35 @@ function App() {
                 target="_blank"
                 rel="noreferrer"
               >
-                <Github size={18} /> GitHub
+                <Github size={18} aria-hidden="true" /> GitHub
               </a>
               <a className="button ghost" href="#contato">
-                <Mail size={18} /> Contato
+                <Mail size={18} aria-hidden="true" /> Contato
               </a>
               <a className="button ghost" href="/curriculo.pdf">
-                <Download size={18} /> Currículo
+                <Download size={18} aria-hidden="true" /> Currículo
               </a>
             </div>
           </div>
 
-          <div className="hero-visual" aria-label="Retrato profissional de Rômulo Pereira">
-            <div className="orbit orbit-one" />
-            <div className="orbit orbit-two" />
-            <div className="tech-chip chip-code">
-              <Code2 size={20} />
-              <span>Backend APIs</span>
+          <figure className="hero-visual">
+            <div className="portrait-frame">
+              <img
+                src="/profile-hero.webp"
+                alt="Retrato digital de Rômulo Pereira em composição visual de tecnologia"
+                width="900"
+                height="1125"
+                fetchPriority="high"
+                onError={(event) => {
+                  event.currentTarget.src = 'https://avatars.githubusercontent.com/rmullo';
+                }}
+              />
             </div>
-            <div className="tech-chip chip-cloud">
-              <Cloud size={20} />
-              <span>Cloud</span>
-            </div>
-            <div className="tech-chip chip-security">
-              <ShieldCheck size={20} />
-              <span>Security</span>
-            </div>
-
-            <div className="hero-terminal" aria-hidden="true">
-              <div className="terminal-bar">
-                <span />
-                <span />
-                <span />
-              </div>
-              <code>
-                <span className="terminal-prompt">$</span> deploy portfolio
-                <br />
-                <span className="terminal-ok">✓ build</span> · <span className="terminal-ok">✓ test</span> · <span className="terminal-ok">✓ ship</span>
-              </code>
-            </div>
-
-            <img
-              src="/profile.jpg"
-              alt="Rômulo Pereira"
-              onError={(event) => {
-                event.currentTarget.src = ../public/profile-hero.png;
-              }}
-            />
-          </div>
+            <figcaption className="portrait-caption">
+              <span>Rômulo Pereira</span>
+              <span>Software Engineer · Cloud · Security</span>
+            </figcaption>
+          </figure>
         </section>
 
         <section className="section" id="sobre">
@@ -253,7 +232,7 @@ function App() {
               <h2>Projetos que demonstram a tecnologia em funcionamento.</h2>
             </div>
             <a href="https://github.com/rmullo" target="_blank" rel="noreferrer">
-              GitHub <ArrowRight size={16} />
+              GitHub <ArrowRight size={16} aria-hidden="true" />
             </a>
           </div>
 
@@ -267,7 +246,7 @@ function App() {
                     <div className="icon-box">
                       <ProjectIcon size={24} />
                     </div>
-                    <ArrowRight size={20} />
+                    <ArrowRight size={20} aria-hidden="true" />
                   </div>
                   <h3>{project.title}</h3>
                   <p>{project.description}</p>
@@ -332,13 +311,13 @@ function App() {
           </div>
           <div className="contact-actions">
             <a className="button primary" href="https://www.linkedin.com/in/rmullo" target="_blank" rel="noreferrer">
-              <Linkedin size={18} /> LinkedIn
+              <Linkedin size={18} aria-hidden="true" /> LinkedIn
             </a>
             <a className="button ghost" href="https://github.com/rmullo" target="_blank" rel="noreferrer">
-              <Github size={18} /> GitHub
+              <Github size={18} aria-hidden="true" /> GitHub
             </a>
             <a className="button ghost" href="mailto:romimpereira@gmail.com">
-              <Mail size={18} /> Email
+              <Mail size={18} aria-hidden="true" /> Email
             </a>
           </div>
         </section>
